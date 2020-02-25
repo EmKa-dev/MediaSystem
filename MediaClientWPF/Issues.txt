@@ -1,0 +1,10 @@
+﻿#1 When a viewmodel needs to know the IPEndPoint of the server to get filedata from
+
+Alt1. Pass connectioninfo(IPEndPoint) into the viewmodel
+Alt2. Allow the MediaFile to store a reference to it parent-device
+Alt3. Create a new class that holds the IPEndPoint, and a method to connect to the server and make the request to the server.
+
+
+# Videos keep playing even if window is closed.
+
+# Windows Media Player 10 must be installed on the client machine in order to playback audio using class "MediaPlayer""

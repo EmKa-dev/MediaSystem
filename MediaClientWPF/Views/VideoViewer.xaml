@@ -1,0 +1,103 @@
+﻿<Window x:Class="MediaSystem.DesktopClientWPF.Views.VideoViewer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MediaSystem.DesktopClientWPF.Views"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Title="VideoViewer" Height="450" Width="800">
+
+    <!--Main border-->
+    <Border>
+
+        <!--main content grid-->
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <!--Titlebar-->
+                <RowDefinition Height="30"/>
+
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Title bar-->
+            <Grid Grid.Row="0">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Title-->
+                <Viewbox Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                    <StackPanel>
+                        <TextBlock Text="{Binding Title,RelativeSource={RelativeSource FindAncestor,AncestorType=Window}}"
+                               FontWeight="Bold" FontSize="24" TextAlignment="Center"/>
+                        <TextBlock Text="{Binding CurrentVideoFile.FileName}" FontSize="16"/>
+                    </StackPanel>
+
+                </Viewbox>
+
+
+                <!--window system buttons-->
+                <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button Style="{StaticResource WindowCloseButton}"
+                            Command="{Binding CloseCommand}"
+                            Content="X" />
+
+                </StackPanel>
+
+
+            </Grid>
+
+            <!--Main content display-->
+            <Border Grid.Row="1" Padding="10" Background="{StaticResource MainBackgroundColorDarkBrush}">
+
+                    <!--Main video window, player + controls-->
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="60" />
+                        </Grid.RowDefinitions>
+
+                    <Border Margin="2" BorderThickness="2" BorderBrush="White" Background="Black">
+
+                        <Viewbox Grid.Row="0">
+
+                            <MediaElement Name="MyMediaElement" Stretch="None"/>
+
+                        </Viewbox>
+
+                    </Border>
+
+
+                    <!--Media controls-->
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Bottom">
+
+                        <Button Content="Play" MinHeight="40" MinWidth="40"
+                            Command="{Binding PlayCommand}"/>
+                        <Button Content="Stop" MinHeight="40" MinWidth="40"
+                            Command="{Binding StopCommand}"/>
+
+                    </StackPanel>
+                </Grid>
+
+            </Border>
+        </Grid>
+
+    </Border>
+
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+            ResizeBorderThickness="{StaticResource MainResizeBorderThickness}"
+            CaptionHeight="{StaticResource MainTitleBarHeight}"
+            GlassFrameThickness="0"
+            CornerRadius="{StaticResource MainCornerRadius}"      
+            />
+    </WindowChrome.WindowChrome>
+
+</Window>

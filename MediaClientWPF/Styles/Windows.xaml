@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <CornerRadius x:Key="MainCornerRadius">15</CornerRadius>
+
+    <Thickness x:Key="MainResizeBorderThickness">10</Thickness>
+
+    <system:Double x:Key="MainTitleBarHeight">40</system:Double>
+
+    <Thickness x:Key="OuterMarginThickness">10</Thickness>
+
+    <GridLength x:Key="TitleBarGridHeight" >50</GridLength>
+    
+</ResourceDictionary>

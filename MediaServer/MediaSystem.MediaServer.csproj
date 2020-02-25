@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <Configurations>Debug;Release</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="DummyContent\**" />
+    <Compile Remove="MediaContent\**" />
+    <EmbeddedResource Remove="DummyContent\**" />
+    <EmbeddedResource Remove="MediaContent\**" />
+    <None Remove="DummyContent\**" />
+    <None Remove="MediaContent\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Communications\MediaSystem.Communications.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="TcpServerBaseLibrary">
+      <HintPath>Library\TcpServerBaseLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Configurations\DeviceConfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Library\TcpServerBaseLibrary.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

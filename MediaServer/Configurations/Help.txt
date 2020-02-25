@@ -1,0 +1,44 @@
+
+Example DeviceConfig.json
+{
+	"MediaType": "Video",
+	"DeviceName": "VideoDevice",
+	"FolderPath": "C:\\Videos"
+}
+
+Mediatype: What type of media should be served, must be either "Video", "Audio" or "Image" (Only one),
+and must mactch the type of files inside the content folder (If there happen to be a mix of either filetypes,
+only files matching the given "MediaType" will be served).
+See supported file-extensions for each mediatype further down.
+
+Devicename: The name of this device as presented to the client. (Make sure it's descriptive).
+
+Folderpath: An absolute path (URI) pointing to the root folder containing the required sub-folders.
+See Folder structure below.
+
+Folder structure: 
+
+RootFolder
+  =>
+    Content
+    Cover
+
+RootFolder: The topmost folder containing the two required sub-folders. This folder can be named anything.
+
+Content: Folder containing the files to be served. In here you put all the files
+that should be available to the client. This folder MUST be called "Content".
+Notes: Should only contain files of either mediatype, and they must all share file-extensions, for example
+if the mediatype for this device is "video", all files must be either of the supported file-extensions
+(.avi), there cannot be a mix of .avi and .mp4 files. See supported file-extensions further down.
+
+Cover: Folder containing the image/s to be presented to the client as the cover-art for this device. If more
+than one image, one will be picked at random for the current session. This folder MUST be called "Cover".
+Notes: Cover-art should be representative of the media served.
+
+Supported file-extensions:
+
+Video: .mp4, .avi.
+Audio: .mp3, .wav.
+Image: .jpg, .jpeg, .png,.bmp.
+Notes: Case-insensitive, all file-extensions will be read in lower-case.
+Meaning .jpg and .JPG will be considered the same by the server.
