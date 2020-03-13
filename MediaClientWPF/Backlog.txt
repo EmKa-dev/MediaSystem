@@ -16,3 +16,9 @@ Refactoring
 # Refactor the MusicViewer to show a single playlist instead of listing the songs in the DeviceBrowser-view.
 
 # Add a mechanism for reporting download progress in DownloadService and displaying it.
+
+# Store downloaded files in tempdata with Path.GetTempPath().
+
+# Look for temp-files before downloading from server.
+
+# Offer option to delete downloaded temp-files on app exit.
