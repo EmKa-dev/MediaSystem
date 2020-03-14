@@ -17,6 +17,6 @@ namespace MediaSystem.DesktopClientWPF.Models
         /// <summary>
         /// Event that is fire when a device is detected
         /// </summary>
-        event Action<Communications.Device> DeviceDetected;
+        event Action<Communications.DeviceInfo> DeviceDetected;
     }
 }

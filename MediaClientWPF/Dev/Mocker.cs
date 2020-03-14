@@ -6,9 +6,9 @@ namespace MediaSystem.DesktopClientWPF.Dev
     public static class Mocker
     {
 
-        public static Device MockDevice()
+        public static DeviceInfo MockDevice()
         {
-            Device device = new Device
+            DeviceInfo device = new DeviceInfo
             {
                 CoverInfo = new CoverInformation("MockType", 5)
             };

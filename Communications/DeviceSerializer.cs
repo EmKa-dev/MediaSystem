@@ -5,7 +5,7 @@ namespace MediaSystem.Communications
 {
     public class DeviceSerializer
     {
-        public byte[] Serialize(Device device)
+        public byte[] Serialize(DeviceInfo device)
         {
             using (var stream = new MemoryStream())
             {
@@ -14,11 +14,11 @@ namespace MediaSystem.Communications
             }
         }
 
-        public Device Deserialize(byte[] data)
+        public DeviceInfo Deserialize(byte[] data)
         {
             using (var stream = new MemoryStream(data))
             {
-                return (Device)new BinaryFormatter().Deserialize(stream);
+                return (DeviceInfo)new BinaryFormatter().Deserialize(stream);
             }
         }
     }

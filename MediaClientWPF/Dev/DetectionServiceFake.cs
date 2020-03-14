@@ -21,6 +21,6 @@ namespace MediaSystem.DesktopClientWPF.Dev
             }
         }
 
-        public event Action<Device> DeviceDetected;
+        public event Action<DeviceInfo> DeviceDetected;
     }
 }

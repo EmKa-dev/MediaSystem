@@ -72,7 +72,7 @@ namespace MediaSystem.MediaServer
             DeviceSerializer ser = new DeviceSerializer();
 
             //TODO: Detect IP and port
-            Device device = new Device
+            DeviceInfo device = new DeviceInfo
             {
                 MediaType = _Lcr.MediaType,
 

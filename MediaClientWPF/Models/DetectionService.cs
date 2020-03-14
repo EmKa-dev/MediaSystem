@@ -20,7 +20,7 @@ namespace MediaSystem.DesktopClientWPF.Models
     /// </summary>
     public class DetectionService : IServerScanner
     {
-        public event Action<Device> DeviceDetected;
+        public event Action<DeviceInfo> DeviceDetected;
 
         private UdpClient _UDPClient = new UdpClient();
 
@@ -104,7 +104,7 @@ namespace MediaSystem.DesktopClientWPF.Models
              return _UDPClient.Receive(ref iPEnd);
         }
 
-        private void NotifyDeviceDetected(Device info)
+        private void NotifyDeviceDetected(DeviceInfo info)
         {
             this.DeviceDetected?.Invoke(info);
         }
