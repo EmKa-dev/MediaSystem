@@ -13,7 +13,8 @@ namespace MediaSystem.DesktopClientWPF.Views
         {
             InitializeComponent();
 
-            this.DataContext = new LoggerViewModel();
+            //this.DataContext = new LoggerViewModel();
+            DataContext = new MainViewModel();
 
             var resizer = new WindowResizer(this);
         }

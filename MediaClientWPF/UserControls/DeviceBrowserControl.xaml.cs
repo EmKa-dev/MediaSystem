@@ -11,8 +11,6 @@ namespace MediaSystem.DesktopClientWPF.UserControls
         public DeviceBrowserControl()
         {
             InitializeComponent();
-
-            this.DataContext = IoTContainer.GetDeviceBrowserVM();
         }
     }
 }

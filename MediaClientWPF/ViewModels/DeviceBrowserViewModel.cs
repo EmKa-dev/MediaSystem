@@ -1,58 +1,27 @@
-﻿using MediaSystem.DesktopClientWPF.Commands;
+﻿using MediaSystem.Communications;
+using MediaSystem.DesktopClientWPF.Commands;
+using MediaSystem.DesktopClientWPF.Models;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using MediaSystem.DesktopClientWPF.Views;
-using System.Net;
-using MediaSystem.Communications;
-using MediaSystem.DesktopClientWPF.Models;
 
 namespace MediaSystem.DesktopClientWPF.ViewModels
 {
     public class DeviceBrowserViewModel : BaseViewModel
     {
-        #region Binding Properties
 
-        public ObservableCollection<Device> AvailableDevices { get; set; } = new ObservableCollection<Device>();
-
-        private Device _SelectedDevice;
-        public Device SelectedDevice
-        {
-            get { return _SelectedDevice; }
-            set
-            {
-                _SelectedDevice = value;
-                OnPropertyChanged(this, (nameof(SelectedDevice)));
-                SelectedFile = null;
-            }
-        }
-
-        private MediaFileInfo _SelectedFile;
-        public MediaFileInfo SelectedFile
-        {
-            get { return _SelectedFile; }
-            set
-            {
-                _SelectedFile = value;
-                OnPropertyChanged(this, (nameof(SelectedFile)));
-            }
-        }
-
-        #endregion
+        public ObservableCollection<DeviceInfo> AvailableDevices { get; set; } = new ObservableCollection<DeviceInfo>();
 
         private IServerScanner _serverScanner;
 
-        #region Commands
+        public event Action<DeviceInfo> DeviceDetectedEvent;
 
         public ICommand SelectDeviceCommand { get; set; }
-        public ICommand DeselectDeviceCommand { get; set; }
-        public ICommand SelectFileCommand { get; set; }
-        public ICommand OpenFileCommand { get; set; }
-
-        #endregion
 
         public DeviceBrowserViewModel(IServerScanner serverScanner)
         {
@@ -63,12 +32,8 @@ namespace MediaSystem.DesktopClientWPF.ViewModels
             StartServerDetection();
 
             //Create commands
-            SelectDeviceCommand = new RelayCommand((device) => this.SelectedDevice = (Device)device);
-            DeselectDeviceCommand = new RelayCommand((obj) => SelectedDevice = null);
-            SelectFileCommand = new RelayCommand((file) => SelectedFile = (MediaFileInfo)file);
-            OpenFileCommand = new RelayCommand(() => this.OpenFileView());
+            SelectDeviceCommand = new RelayCommand((device) => this.DeviceDetectedEvent.Invoke((DeviceInfo)device));
         }
-
 
         private async void StartServerDetection()
         {
@@ -87,9 +52,8 @@ namespace MediaSystem.DesktopClientWPF.ViewModels
             SessionLogger.LogEvent("Stopped searching for device");
         }
 
-        private void OnDeviceDetection(Device device)
+        private void OnDeviceDetection(DeviceInfo device)
         {
-
             //Since functionality to not detect duplicates is not implemented/not working, currently disable detectionservice after we detected one device.
             _serverScanner.Enabled = false;
 
@@ -103,53 +67,6 @@ namespace MediaSystem.DesktopClientWPF.ViewModels
 
             //Should we use synchronizationObject instead?
             Application.Current.Dispatcher.InvokeAsync(() => this.AvailableDevices.Add(device));
-
-        }
-
-        private void OpenFileView()
-        {
-            //SelectedDevice informs what type of view/window need to be opened
-            if (SelectedDevice == null)
-            {
-                return;
-            }
-
-            //Get the ipendpoint of device if it exists
-            IPEndPoint iPEndPoint = null;
-
-            if (SelectedDevice.ConnectionInfo != null)
-            {
-                IPAddress.TryParse(SelectedDevice.ConnectionInfo.IPAddress, out IPAddress adr);
-
-                iPEndPoint = new IPEndPoint(adr, SelectedDevice.ConnectionInfo.Port);
-            }
-
-            switch (SelectedDevice.MediaType)
-            {
-                case DataMediaType.Image:
-
-                    var imageViewer = new ImageViewer(SelectedFile, iPEndPoint);
-
-                    imageViewer.Show();
-                    break;
-
-                case DataMediaType.Audio:
-
-                    var musicviewer = new MusicViewer(SelectedDevice.MediaFiles, iPEndPoint);
-
-                    musicviewer.Show();
-                    break;
-
-                case DataMediaType.Video:
-
-                    VideoViewer videoViewer = new VideoViewer(SelectedFile, iPEndPoint);
-
-                    videoViewer.Show();
-                    break;
-
-                default:
-                    break;
-            }
         }
     }
 }

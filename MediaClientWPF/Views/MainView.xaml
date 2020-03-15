@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MediaSystem.DesktopClientWPF.Views"
         xmlns:uc="clr-namespace:MediaSystem.DesktopClientWPF.UserControls"
+        xmlns:vms="clr-namespace:MediaSystem.DesktopClientWPF.ViewModels"
         mc:Ignorable="d"
         Title="MainBrowser"
                     WindowStyle="None"
@@ -12,7 +13,7 @@
         Height="600" Width="800">
 
     <Window.Resources>
-
+            
         <Style TargetType="{x:Type local:MainView}">
 
             <Setter Property="Template">
@@ -91,7 +92,7 @@
                                     </Border>
 
                                     <ListView Grid.Row="3" Margin="30" HorizontalAlignment="Right" Width="300"
-                                             ItemsSource="{Binding SessionLog}">
+                                             ItemsSource="{Binding Path=LoggerViewModel.SessionLog}">
 
                                     </ListView>
 
@@ -114,6 +115,12 @@
 
         </Style>
 
+        <DataTemplate DataType="{x:Type vms:DeviceBrowserViewModel}">
+            <uc:DeviceBrowserControl/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vms:ImageBrowserViewModel}">
+            <uc:ImageBrowserControl/>
+        </DataTemplate>
 
     </Window.Resources>
 
@@ -127,6 +134,6 @@
     </WindowChrome.WindowChrome>
 
     <Border>
-        <uc:DeviceBrowserControl x:Name="DevicebrowserControl"/>
+        <ContentPresenter Content="{Binding Path=CurrentViewModel}"/>
     </Border>
 </Window>
