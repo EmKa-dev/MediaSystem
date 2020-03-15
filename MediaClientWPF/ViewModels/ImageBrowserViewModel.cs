@@ -5,6 +5,9 @@ using System.IO;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using System.Windows.Input;
+using MediaSystem.DesktopClientWPF.Commands;
+using MediaSystem.DesktopClientWPF.Views;
 
 namespace MediaSystem.DesktopClientWPF.ViewModels
 {
@@ -24,8 +27,12 @@ namespace MediaSystem.DesktopClientWPF.ViewModels
             }
         }
 
+        public ICommand OpenImageCommand { get; set; }
+
         public ImageBrowserViewModel(DeviceInfo device)
         {
+            OpenImageCommand = new RelayCommand((imagedata) => new ImageViewer((byte[])imagedata).Show());
+
             SelectedDevice = device;
             DownloadAndPopulateCollection(device.MediaFiles);
             SessionLogger.LogEvent("Finished Downloading all image data from server");

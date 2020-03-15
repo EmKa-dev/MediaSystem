@@ -10,11 +10,11 @@ namespace MediaSystem.DesktopClientWPF.Views
     /// </summary>
     public partial class ImageViewer : Window
     {
-        public ImageViewer(MediaFileInfo file, IPEndPoint ipEnd = null)
+        public ImageViewer(byte[] imagedata, IPEndPoint ipEnd = null)
         {
             InitializeComponent();
 
-            this.DataContext = new ImageViewerViewModel(file, ipEnd);
+            this.DataContext = new ImageViewerViewModel(imagedata);
 
             var resizer = new WindowResizer(this);
         }

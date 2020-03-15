@@ -36,7 +36,7 @@
                     <StackPanel>
                         <TextBlock Text="{Binding Title,RelativeSource={RelativeSource FindAncestor,AncestorType=Window}}"
                                FontWeight="Bold" FontSize="24" TextAlignment="Center"/>
-                        <TextBlock Text="{Binding Path=FileInfo.FileName}" FontSize="16"/>
+                        <TextBlock Text="ImageName" FontSize="16"/>
                     </StackPanel>
 
                 </Viewbox>
