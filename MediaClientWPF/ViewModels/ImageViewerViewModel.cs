@@ -6,11 +6,6 @@ namespace MediaSystem.DesktopClientWPF.ViewModels
     {
         public byte[] ImageData { get; set; }
 
-        public ImageViewerViewModel()
-        {
-            ImageData = TestImageResources.Blue;
-        }
-
         public ImageViewerViewModel(byte[] data)
         {
             ImageData = data;
