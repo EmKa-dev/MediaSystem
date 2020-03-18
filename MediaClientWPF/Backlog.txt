@@ -13,3 +13,5 @@
 # Look for temp-files before downloading from server.
 
 # Offer option to delete downloaded temp-files on app exit.
+
+# Find a way to clean up temp-files after GUITestDownloadService puts them there.
