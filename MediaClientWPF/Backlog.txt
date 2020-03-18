@@ -1,23 +1,14 @@
-Refactoring
+## Bring dev state to a stable point in master, so new features can be developed in seperate branches.
 
-# Convert DesktopClientWPF project to use .Net Core framework.
-
-# Create a common DownloadService in place of currently used different FetcherServices
-  to avoid code-duplication. [Partially done, needs refactoring]
-
-# Refactor download methods to use System.Span<T>(.Net Core 2.1 or later) to avoid excess buffer allocations.
-
-# Find a way to detect duplicate devices and avoid showing duplicates.
+# Refactor downloadservice methods to use System.Span<T>(.Net Core 2.1 or later) to avoid excess buffer allocations.
 
 # Better exception-handling overall, but more specifically in downloading data.
 
-# Create mock devices that includes mock-data that we can use to test file-views.
+# Find a way to detect duplicate devices and avoid showing duplicates.
 
-# Refactor the MusicViewer to show a single playlist instead of listing the songs in the DeviceBrowser-view.
+# Find a way to detect and remove devices that are no longer available.
 
 # Add a mechanism for reporting download progress in DownloadService and displaying it.
-
-# Store downloaded files in tempdata with Path.GetTempPath().
 
 # Look for temp-files before downloading from server.
 

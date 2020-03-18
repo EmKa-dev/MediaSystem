@@ -6,7 +6,7 @@ namespace MediaSystem.Communications
     [Serializable]
     public class DeviceInfo
     {
-        public ConnectionInformation ConnectionInfo { get; set; }
+        public ConnectionInfo ConnectionInfo { get; set; }
 
         public DataMediaType MediaType { get; set; }
 

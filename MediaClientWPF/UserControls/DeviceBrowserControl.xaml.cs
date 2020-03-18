@@ -1,5 +1,4 @@
 ﻿using System.Windows.Controls;
-using MediaSystem.DesktopClientWPF.DIServices;
 
 namespace MediaSystem.DesktopClientWPF.UserControls
 {

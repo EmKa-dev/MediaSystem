@@ -1,5 +1,6 @@
-﻿using MediaSystem.DesktopClientWPF;
+﻿using DesktopClientWPF;
 using MediaSystem.DesktopClientWPF.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
 namespace MediaSystem.DesktopClientWPF.Views
@@ -9,14 +10,15 @@ namespace MediaSystem.DesktopClientWPF.Views
     /// </summary>
     public partial class MainView : Window
     {
+        private readonly WindowResizer resizer;
+
         public MainView()
         {
             InitializeComponent();
 
-            //this.DataContext = new LoggerViewModel();
-            DataContext = new MainViewModel();
+            DataContext = App.ServiceProvider.GetService<MainViewModel>();
 
-            var resizer = new WindowResizer(this);
+            resizer = new WindowResizer(this);
         }
     }
 }

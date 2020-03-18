@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaSystem.MediaServer", "MediaServer\MediaSystem.MediaServer.csproj", "{40153853-8AA1-484E-9D54-3DFE44F07110}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaSystem.DesktopClientWPF", "MediaClientWPF\MediaSystem.DesktopClientWPF.csproj", "{85571189-503D-4A96-8FD7-CAFB6E7C3181}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaSystem.DesktopClientWPF", "MediaClientWPF\MediaSystem.DesktopClientWPF.csproj", "{85571189-503D-4A96-8FD7-CAFB6E7C3181}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaSystem.Communications", "Communications\MediaSystem.Communications.csproj", "{58C5F573-30DD-4925-9AF6-7FC435BF16FD}"
 EndProject
@@ -19,8 +19,8 @@ Global
 		{40153853-8AA1-484E-9D54-3DFE44F07110}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40153853-8AA1-484E-9D54-3DFE44F07110}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40153853-8AA1-484E-9D54-3DFE44F07110}.Release|Any CPU.Build.0 = Release|Any CPU
-		{85571189-503D-4A96-8FD7-CAFB6E7C3181}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{85571189-503D-4A96-8FD7-CAFB6E7C3181}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85571189-503D-4A96-8FD7-CAFB6E7C3181}.Debug|Any CPU.ActiveCfg = GUITest|Any CPU
+		{85571189-503D-4A96-8FD7-CAFB6E7C3181}.Debug|Any CPU.Build.0 = GUITest|Any CPU
 		{85571189-503D-4A96-8FD7-CAFB6E7C3181}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85571189-503D-4A96-8FD7-CAFB6E7C3181}.Release|Any CPU.Build.0 = Release|Any CPU
 		{58C5F573-30DD-4925-9AF6-7FC435BF16FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

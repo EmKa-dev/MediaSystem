@@ -12,13 +12,15 @@ namespace MediaSystem.DesktopClientWPF.Views
     /// </summary>
     public partial class MusicViewer : Window
     {
+        private readonly WindowResizer resizer;
+
         public MusicViewer(List<MediaFileInfo> files, IPEndPoint ipEnd = null)
         {
             InitializeComponent();
 
             this.DataContext = new MusicPlayerViewModel(files, ipEnd);
 
-            var resizer = new WindowResizer(this);
+            resizer = new WindowResizer(this);
         }
     }
 }

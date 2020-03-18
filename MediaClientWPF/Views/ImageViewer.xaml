@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MediaSystem.DesktopClientWPF.Views"
         mc:Ignorable="d"
         WindowStyle="None"
         Title="ImageViewer"
@@ -12,7 +11,6 @@
 
     <!--Main border-->
     <Border>
-
         <!--main content grid-->
         <Grid>
 
@@ -54,9 +52,11 @@
             </Grid>
 
             <!--Main image display-->
-            <Border Grid.Row="1" Margin="10" Background="{StaticResource MainBackgroundColorDarkBrush}">
-                <Image Source="{Binding Path=ImageData}" Stretch="UniformToFill"/>
-            </Border>
+            <Viewbox Grid.Row="1" Stretch="Fill">
+                <Border Background="{StaticResource MainBackgroundColorDarkBrush}">
+                    <Image Source="{Binding Path=ImageData}" Stretch="None"/>
+                </Border>
+            </Viewbox>
         </Grid>
 
     </Border>
@@ -70,5 +70,5 @@
             CornerRadius="{StaticResource MainCornerRadius}"
             />
     </WindowChrome.WindowChrome>
-    
+
 </Window>

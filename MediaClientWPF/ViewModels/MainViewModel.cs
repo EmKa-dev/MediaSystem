@@ -1,5 +1,7 @@
-﻿using MediaSystem.Communications;
-using MediaSystem.DesktopClientWPF.DIServices;
+﻿using DesktopClientWPF;
+using MediaSystem.Communications;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace MediaSystem.DesktopClientWPF.ViewModels
 {
@@ -24,7 +26,7 @@ namespace MediaSystem.DesktopClientWPF.ViewModels
 		public MainViewModel()
 		{
 
-			_deviceBrowserViewModel = IoTContainer.GetDeviceBrowserVM();
+			_deviceBrowserViewModel = App.ServiceProvider.GetService<DeviceBrowserViewModel>();
 			_deviceBrowserViewModel.DeviceDetectedEvent += OnDeviceChanged;
 
 			CurrentViewModel = _deviceBrowserViewModel;
@@ -37,7 +39,11 @@ namespace MediaSystem.DesktopClientWPF.ViewModels
 			switch (deviceInfo.MediaType)
 			{
 				case DataMediaType.Image:
-					CurrentViewModel = new ImageBrowserViewModel(deviceInfo);
+
+					var imgvm = App.ServiceProvider.GetService<ImageBrowserViewModel>();
+					imgvm.InitializeDeviceData(deviceInfo);
+					CurrentViewModel = imgvm;
+
 					break;
 				case DataMediaType.Audio:
 					break;

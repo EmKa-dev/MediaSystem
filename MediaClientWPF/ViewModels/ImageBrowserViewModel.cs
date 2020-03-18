@@ -13,39 +13,33 @@ namespace MediaSystem.DesktopClientWPF.ViewModels
 {
     public class ImageBrowserViewModel : BaseViewModel
     {
+        private readonly IDownloadService _downloadService;
 
         public ObservableCollection<byte[]> DownloadedImageFiles { get; set; } = new ObservableCollection<byte[]>();
 
-        private DeviceInfo _SelectedDevice;
-        public DeviceInfo SelectedDevice
-        {
-            get { return _SelectedDevice; }
-            set
-            {
-                _SelectedDevice = value;
-                OnPropertyChanged(this, (nameof(SelectedDevice)));
-            }
-        }
-
         public ICommand OpenImageCommand { get; set; }
 
-        public ImageBrowserViewModel(DeviceInfo device)
+        public ImageBrowserViewModel(IDownloadService downloadService)
         {
-            OpenImageCommand = new RelayCommand((imagedata) => new ImageViewer((byte[])imagedata).Show());
+            _downloadService = downloadService;
 
-            SelectedDevice = device;
-            DownloadAndPopulateCollection(device.MediaFiles);
-            SessionLogger.LogEvent("Finished Downloading all image data from server");
+            OpenImageCommand = new RelayCommand((imagedata) => new ImageViewer((byte[])imagedata).Show());
         }
 
-        private void DownloadAndPopulateCollection(List<MediaFileInfo> filestodownload)
+        public void InitializeDeviceData(DeviceInfo deviceInfo)
         {
-            IPEndPoint iPEnd = new IPEndPoint( IPAddress.Parse(SelectedDevice.ConnectionInfo.IPAddress), SelectedDevice.ConnectionInfo.Port);
+            DownloadAndPopulateCollection(deviceInfo);
+            SessionLogger.LogEvent("Finished fetching all image data");
+        }
 
-            foreach (var file in filestodownload)
+        private void DownloadAndPopulateCollection(DeviceInfo deviceInfo)
+        {
+            IPEndPoint iPEnd = new IPEndPoint( IPAddress.Parse(deviceInfo.ConnectionInfo.IPAddress), deviceInfo.ConnectionInfo.Port);
+
+            foreach (var file in deviceInfo.MediaFiles)
             {
-                Uri uri = DownloadService.DownloadFileDataFromServerSync(file, iPEnd);
-                DownloadedImageFiles.Add(File.ReadAllBytes(uri.LocalPath));
+                Uri uri = _downloadService.DownloadFileData(file, iPEnd);
+                DownloadedImageFiles.Add(File.ReadAllBytes(uri.AbsolutePath));
             }
         }
     }

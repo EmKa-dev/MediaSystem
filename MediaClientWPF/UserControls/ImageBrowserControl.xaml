@@ -15,12 +15,17 @@
         <DataTemplate x:Key="DeviceContentButtonTemplate">
             <Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}, Mode=FindAncestor}, Path=DataContext.OpenImageCommand}"
                     CommandParameter="{Binding}">
-                <Button.RenderTransform>
-                    <ScaleTransform ScaleX="1" ScaleY="1"/>
-                </Button.RenderTransform>
                 <Button.Style>
+                        
                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ImageBrowserImageButtonStyle}">
 
+                        <Setter Property="RenderTransform">
+                            <Setter.Value>
+                                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                            </Setter.Value>
+                        </Setter>
+                        
+                        <Setter Property="RenderTransformOrigin" Value="0.5 0.5"/>
                         
                         <Setter Property="Template">
                             <Setter.Value>
@@ -34,16 +39,16 @@
                                             <Trigger.EnterActions>
                                                 <BeginStoryboard>
                                                     <Storyboard>
-                                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="1.2" Duration="0:0:0.2" />
-                                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="1.2" Duration="0:0:0.2" />
+                                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="1.1" Duration="0:0:0.5" />
+                                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="1.1" Duration="0:0:0.5" />
                                                     </Storyboard>
                                                 </BeginStoryboard>
                                             </Trigger.EnterActions>
                                             <Trigger.ExitActions>
                                                 <BeginStoryboard>
                                                     <Storyboard>
-                                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="1" Duration="0:0:0.2" />
-                                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="1" Duration="0:0:0.2" />
+                                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="1" Duration="0:0:0.3" />
+                                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="1" Duration="0:0:0.3" />
                                                     </Storyboard>
                                                 </BeginStoryboard>
                                             </Trigger.ExitActions>

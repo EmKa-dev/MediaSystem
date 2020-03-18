@@ -11,28 +11,28 @@ using TcpServerBaseLibrary;
 
 namespace MediaSystem.DesktopClientWPF.Models
 {
-    public static class DownloadService
+    public class DownloadService : IDownloadService
     {
-        public static readonly string DownloadTempFolder = CreateTempFolder();
+        private readonly string DownloadTempFolder;
 
-        private static string CreateTempFolder()
+        public DownloadService()
         {
-            var d = Directory.CreateDirectory(@".\DownloadTemp");
+            DownloadTempFolder = GetTempFolder();
+        }
 
-            //Clean directory
-            foreach (var file in Directory.EnumerateFiles(d.FullName))
-            {
-                File.Delete(file);
-            }
+        private string GetTempFolder()
+        {
+            var tmppath = Path.GetTempPath();
+
+            var d = Directory.CreateDirectory(@$"{tmppath}\MediaSystemClient");
 
             return d.FullName;
         }
 
-        public static async Task<Uri> DownloadFileDataFromServerAsync(MediaFileInfo file, IPEndPoint iPEnd)
+        public async Task<Uri> DownloadFileDataAsync(MediaFileInfo file, IPEndPoint iPEnd)
         {
             if (iPEnd == null)
             {
-                SessionLogger.LogEvent("Can't download data, no connection info provided. (If testing with mocks, this is expected)");
                 return null;
             }
 
@@ -102,11 +102,10 @@ namespace MediaSystem.DesktopClientWPF.Models
             }
         }
 
-        public static Uri DownloadFileDataFromServerSync(MediaFileInfo file, IPEndPoint iPEnd)
+        public Uri DownloadFileData(MediaFileInfo file, IPEndPoint iPEnd)
         {
             if (iPEnd == null)
             {
-                SessionLogger.LogEvent("Can't download data, no connection info provided. (If testing with mocks, this is expected)");
                 return null;
             }
 

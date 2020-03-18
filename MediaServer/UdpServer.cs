@@ -76,7 +76,7 @@ namespace MediaSystem.MediaServer
             {
                 MediaType = _Lcr.MediaType,
 
-                ConnectionInfo = new ConnectionInformation
+                ConnectionInfo = new ConnectionInfo
                 {
                     IPAddress = IPHelper.GetLocalIPv4(System.Net.NetworkInformation.NetworkInterfaceType.Ethernet),
                     Port = 8001
