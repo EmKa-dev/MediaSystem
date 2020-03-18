@@ -4,37 +4,49 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MediaSystem.DesktopClientWPF.UserControls"
+             xmlns:sys="clr-namespace:System;assembly=System.Runtime"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
-
+        <x:Array x:Key="dlist" Type="{x:Type sys:Int32}">
+        </x:Array>
+        
         <DataTemplate x:Key="DeviceContentButtonTemplate">
             <Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}, Mode=FindAncestor}, Path=DataContext.OpenImageCommand}"
                     CommandParameter="{Binding}">
+                <Button.RenderTransform>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Button.RenderTransform>
                 <Button.Style>
-                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource DeviceBrowserButtonBaseStyle}">
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ImageBrowserImageButtonStyle}">
 
-                        <Setter Property="Foreground" Value="{StaticResource MainTextForegroundColorBrush}"/>
-                        <Setter Property="Background" Value="{StaticResource MainButtonColorLightBrush}"/>
-
+                        
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border x:Name="Border" BorderThickness="2" BorderBrush="Black">
-                                        <Border.Background>
-                                            <SolidColorBrush Color="{StaticResource MainButtonColorDark}"/>
-                                        </Border.Background>
-
-                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <Image Source="{Binding}" Stretch="Fill"/>
-                                        </StackPanel>
+                                    <Border x:Name="Border" BorderThickness="1" BorderBrush="Black">
+                                        <Image Source="{Binding}" Stretch="Fill"/>
                                     </Border>
 
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter TargetName="Border" Property="BorderThickness" Value="3"/>
-                                            <Setter Property="Opacity" Value="1"/>
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="1.2" Duration="0:0:0.2" />
+                                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="1.2" Duration="0:0:0.2" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="1" Duration="0:0:0.2" />
+                                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="1" Duration="0:0:0.2" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -58,10 +70,10 @@
         </Style>
         
     </UserControl.Resources>
-    
+
     <Grid>
         <ItemsControl Grid.Row="1"
-              Style="{StaticResource ContentOverview}" Margin="5"/>
+        Style="{StaticResource ContentOverview}" Margin="5"/>
 
     </Grid>
 </UserControl>
