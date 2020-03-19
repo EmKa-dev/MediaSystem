@@ -8,7 +8,7 @@ using System.Globalization;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace MediaSystem.DesktopClientWPF.GUITest
+namespace MediaSystem.DesktopClientWPF.Dev.GUITest
 {
     public class GUITestDownloadService : IDownloadService
     {

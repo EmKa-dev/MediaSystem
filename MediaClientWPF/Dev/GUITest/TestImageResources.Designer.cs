@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MediaSystem.DesktopClientWPF.GUITest {
+namespace MediaSystem.DesktopClientWPF.Dev.GUITest {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace MediaSystem.DesktopClientWPF.GUITest {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MediaSystem.DesktopClientWPF.GUITest.TestImageResources", typeof(TestImageResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MediaSystem.DesktopClientWPF.Dev.GUITest.TestImageResources", typeof(TestImageResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

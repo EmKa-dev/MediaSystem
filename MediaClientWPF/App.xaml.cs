@@ -1,7 +1,7 @@
 ﻿#define GUITest
 
 using MediaSystem.DesktopClientWPF;
-using MediaSystem.DesktopClientWPF.GUITest;
+using MediaSystem.DesktopClientWPF.Dev.GUITest;
 using MediaSystem.DesktopClientWPF.Models;
 using MediaSystem.DesktopClientWPF.ViewModels;
 using MediaSystem.DesktopClientWPF.Views;

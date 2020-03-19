@@ -2,7 +2,7 @@
 using MediaSystem.Communications;
 using MediaSystem.DesktopClientWPF.Models;
 
-namespace MediaSystem.DesktopClientWPF.GUITest
+namespace MediaSystem.DesktopClientWPF.Dev.GUITest
 {
     public class GUITestDetectionService : IServerScanner
     {

@@ -1,5 +1,4 @@
-﻿using MediaSystem.DesktopClientWPF.GUITest;
-
+﻿
 namespace MediaSystem.DesktopClientWPF.ViewModels
 {
     public class ImageViewerViewModel : BaseViewModel

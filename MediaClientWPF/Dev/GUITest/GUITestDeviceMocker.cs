@@ -1,7 +1,7 @@
 ﻿using MediaSystem.Communications;
 
 //TODO: Mock device including content somehow (programmatically create white images etc.)
-namespace MediaSystem.DesktopClientWPF.GUITest
+namespace MediaSystem.DesktopClientWPF.Dev.GUITest
 {
     public class GUITestDeviceMocker
     {

@@ -47,7 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="GUITest\TestImageResources.Designer.cs">
+    <Compile Update="Dev\GUITest\TestImageResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>TestImageResources.resx</DependentUpon>
@@ -55,17 +55,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="GUITest\TestImageResources.resx">
+    <EmbeddedResource Update="Dev\GUITest\TestImageResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TestImageResources.Designer.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Resources\DarkBlue.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>
