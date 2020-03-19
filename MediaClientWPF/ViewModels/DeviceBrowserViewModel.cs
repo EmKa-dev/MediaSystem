@@ -29,10 +29,9 @@ namespace MediaSystem.DesktopClientWPF.ViewModels
             _serverScanner = serverScanner;
             _serverScanner.DeviceDetected += this.OnDeviceDetection;
 
-            StartServerDetection();
-
-            //Create commands
             SelectDeviceCommand = new RelayCommand((device) => this.DeviceDetectedEvent.Invoke((DeviceInfo)device));
+
+            StartServerDetection();
         }
 
         private async void StartServerDetection()

@@ -13,107 +13,6 @@
         Height="600" Width="800">
 
     <Window.Resources>
-            
-        <Style TargetType="{x:Type local:MainView}">
-
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Window}">
-
-                        <!--Outmost border, if we want dropshadow we need space (padding) here-->
-                        <Border x:Name="OuterBorder">
-
-
-                            <!--Main window outline-->
-                            <Grid>
-
-                                <!--Opacity mask for corner on grid-->
-                                <Border x:Name="OpacityMaskContainer"
-                                        Background="White"
-                                        CornerRadius="{StaticResource MainCornerRadius}">
-                                </Border>
-
-                                <!--Main window content-->
-                                <Grid x:Name="MainContentGrid">
-
-                                    <!--Corner clipping-->
-                                    <Grid.OpacityMask>
-                                        <VisualBrush Visual="{Binding ElementName=OpacityMaskContainer}"/>
-                                    </Grid.OpacityMask>
-
-                                    <Grid.RowDefinitions>
-                                        <!--Titlebar-->
-                                        <RowDefinition x:Name="TitleBarRow" Height="{StaticResource TitleBarGridHeight}" />
-                                        <!--Fill between titlebar and main content-->
-                                        <RowDefinition Height="auto" />
-                                        <!--Main content row-->
-                                        <RowDefinition Height="auto"/>
-
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-
-                                    <!--Titlebar-->
-                                    <Grid Grid.Column="0" Panel.ZIndex="1">
-                                        <Grid.ColumnDefinitions>
-                                            <!--Icon-->
-                                            <ColumnDefinition Width="auto" />
-                                            <!--Title-->
-                                            <ColumnDefinition Width="*"/>
-                                            <!--Windows buttons-->
-                                            <ColumnDefinition Width="auto" />
-                                        </Grid.ColumnDefinitions>
-
-                                        <Viewbox Grid.ColumnSpan="3" HorizontalAlignment="Center">
-                                            <TextBlock Text="Title!"/>
-                                        </Viewbox>
-
-                                        <!--Window buttons-->
-                                        <StackPanel Grid.Column="2" Orientation="Horizontal">
-                                            <Button Command="{Binding CloseCommand}"
-                                                    Style="{StaticResource WindowCloseButton}" Content="X" />
-                                        </StackPanel>
-
-                                    </Grid>
-
-                                    <!--titlebar-underline-->
-                                    <Border Grid.Row="1" Height="5" BorderThickness="0 2 0 0">
-                                        <Border.BorderBrush>
-                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                <GradientStop Color="Blue" Offset="0"/>
-                                                <GradientStop Color="Red" Offset="0.5"/>
-                                                <GradientStop Color="Blue" Offset="1"/>
-                                            </LinearGradientBrush>
-                                        </Border.BorderBrush>
-                                    </Border>
-
-                                    <!--Page content-->
-                                    <Border Grid.Row="2" Padding="15" Height="400" Background="{StaticResource MainBackgroundGradientBrush}">
-                                        <ContentPresenter Content="{TemplateBinding Content}" />
-                                    </Border>
-
-                                    <ListView Grid.Row="3" Margin="30" HorizontalAlignment="Right" Width="300"
-                                             ItemsSource="{Binding Path=LoggerViewModel.SessionLog}">
-
-                                    </ListView>
-
-                                </Grid>
-                            </Grid>
-
-                        </Border>
-
-
-                        <!--Use sharp corners when maximized so the corners doesn't expose things behind-->
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="WindowState" Value="Maximized">
-                                <Setter TargetName="OpacityMaskContainer" Property="CornerRadius" Value="0"/>
-                                <!--<Setter TargetName="OuterBorder" Property="Padding" Value="5,5,5,5"/>-->
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-
-        </Style>
 
         <DataTemplate DataType="{x:Type vms:DeviceBrowserViewModel}">
             <uc:DeviceBrowserControl/>
@@ -133,7 +32,72 @@
             />
     </WindowChrome.WindowChrome>
 
-    <Border>
-        <ContentPresenter Content="{Binding Path=CurrentViewModel}"/>
+    <!--Outmost border, if we want dropshadow we need space (padding) here-->
+    <Border x:Name="OuterBorder">
+
+        <!--Main window outline-->
+        <Grid>
+
+            <!--Main window content-->
+            <Grid x:Name="MainContentGrid">
+
+                <Grid.RowDefinitions>
+                    <!--Titlebar-->
+                    <RowDefinition x:Name="TitleBarRow" Height="{StaticResource TitleBarGridHeight}" />
+                    <!--Fill between titlebar and main content-->
+                    <RowDefinition Height="auto" />
+                    <!--Main content row-->
+                    <RowDefinition Height="auto"/>
+
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!--Titlebar-->
+                <Grid Grid.Row="0" Panel.ZIndex="1">
+                    <Grid.ColumnDefinitions>
+                        <!--Icon-->
+                        <ColumnDefinition Width="auto" />
+                        <!--Title-->
+                        <ColumnDefinition Width="*"/>
+                        <!--Windows buttons-->
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Viewbox Grid.ColumnSpan="3" HorizontalAlignment="Center">
+                        <TextBlock Text="Title!"/>
+                    </Viewbox>
+
+                    <!--Window buttons-->
+                    <StackPanel Grid.Column="2" Orientation="Horizontal">
+                        <Button Command="{Binding CloseCommand}"
+                                                    Style="{StaticResource WindowCloseButton}" Content="X" />
+                    </StackPanel>
+
+                </Grid>
+
+                <!--titlebar-underline-->
+                <Border Grid.Row="1" Height="5" BorderThickness="0 2 0 0">
+                    <Border.BorderBrush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="Blue" Offset="0"/>
+                            <GradientStop Color="Red" Offset="0.5"/>
+                            <GradientStop Color="Blue" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+                </Border>
+
+                <!--Page content-->
+                <Border Grid.Row="2" Padding="15" Background="{StaticResource MainBackgroundGradientBrush}">
+                    <ContentPresenter Content="{Binding Path=CurrentViewModel}" />
+                </Border>
+
+                <ListView Grid.Row="3" HorizontalAlignment="Right"
+                                             ItemsSource="{Binding Path=LoggerViewModel.SessionLog}">
+                </ListView>
+
+            </Grid>
+        </Grid>
+
     </Border>
+
 </Window>
