@@ -1,4 +1,5 @@
 ﻿using MediaSystem.Communications;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using System.Net.Sockets;
@@ -20,17 +21,22 @@ namespace MediaSystem.DesktopClientWPF.Models
     /// </summary>
     public class DetectionService : IServerScanner
     {
+
         public event Action<DeviceInfo> DeviceDetected;
 
         private UdpClient _UDPClient = new UdpClient();
+
+        private ILogger _logger;
 
         /// <summary>
         /// True if broadcasts are being sent, false if not.
         /// </summary>
         public bool Enabled { get; set; } = true;
 
-        public DetectionService()
+        public DetectionService(ILogger logger)
         {
+            _logger = logger;
+
             //Wait 3 seconds for each receive call to finish, otherwise consider it failed
             _UDPClient.Client.ReceiveTimeout = 3000;
             _UDPClient.Ttl = 2;
@@ -43,7 +49,7 @@ namespace MediaSystem.DesktopClientWPF.Models
         {
             IPEndPoint newEP = new IPEndPoint(IPAddress.Broadcast, 8001);
 
-            SessionLogger.LogEvent("Sending a broadcast ");
+            _logger.LogDebug("Sending a broadcast ");
 
             byte[] q = Encoding.ASCII.GetBytes("!Hello");
 
@@ -62,14 +68,14 @@ namespace MediaSystem.DesktopClientWPF.Models
                 }
                 catch (SocketException)
                 {
-                    SessionLogger.LogEvent("No luck, try again");
+                    _logger.LogDebug("No luck, try again");
                     return;
                 }
 
             }
             catch (Exception e)
             {
-                SessionLogger.LogEvent(e.Message);
+                _logger.LogDebug(e.Message);
                 return;
             }
         }
@@ -89,7 +95,7 @@ namespace MediaSystem.DesktopClientWPF.Models
                 }
                 catch (Exception)
                 {
-                    SessionLogger.LogEvent("Failed to retrieve devicedata");
+                    _logger.LogDebug("Failed to retrieve devicedata");
                     return;
                 }
             }

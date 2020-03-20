@@ -1,7 +1,4 @@
-﻿using DesktopClientWPF;
-using MediaSystem.DesktopClientWPF.ViewModels;
-using Microsoft.Extensions.DependencyInjection;
-using System.Windows;
+﻿using System.Windows;
 
 namespace MediaSystem.DesktopClientWPF.Views
 {
@@ -15,8 +12,6 @@ namespace MediaSystem.DesktopClientWPF.Views
         public MainView()
         {
             InitializeComponent();
-
-            DataContext = App.ServiceProvider.GetService<MainViewModel>();
 
             resizer = new WindowResizer(this);
         }

@@ -1,10 +1,9 @@
 ﻿using MediaSystem.Communications;
 using MediaSystem.DesktopClientWPF.Commands;
 using MediaSystem.DesktopClientWPF.Models;
+using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,25 +17,24 @@ namespace MediaSystem.DesktopClientWPF.ViewModels
         public ObservableCollection<DeviceInfo> AvailableDevices { get; set; } = new ObservableCollection<DeviceInfo>();
 
         private IServerScanner _serverScanner;
-
+        private ILogger _logger;
         public event Action<DeviceInfo> DeviceDetectedEvent;
 
         public ICommand SelectDeviceCommand { get; set; }
 
-        public DeviceBrowserViewModel(IServerScanner serverScanner)
+        public DeviceBrowserViewModel(IServerScanner serverScanner, ILogger logger)
         {
-            //Set up and start the scanner service
+            _logger = logger;
+
             _serverScanner = serverScanner;
             _serverScanner.DeviceDetected += this.OnDeviceDetection;
 
             SelectDeviceCommand = new RelayCommand((device) => this.DeviceDetectedEvent.Invoke((DeviceInfo)device));
-
-            StartServerDetection();
         }
 
-        private async void StartServerDetection()
+        public async void StartServerDetection()
         {
-            SessionLogger.LogEvent("Started searching for device");
+            _logger.LogDebug("Started searching for device");
 
             await Task.Run(() =>
             {
@@ -48,21 +46,21 @@ namespace MediaSystem.DesktopClientWPF.ViewModels
                 }
             });
 
-            SessionLogger.LogEvent("Stopped searching for device");
+            _logger.LogDebug("Stopped searching for device");
         }
 
         private void OnDeviceDetection(DeviceInfo device)
         {
-            //Since functionality to not detect duplicates is not implemented/not working, currently disable detectionservice after we detected one device.
+            //Since functionality to not detect duplicates is not implemented / not working, currently disable detectionservice after we detected one device.
             _serverScanner.Enabled = false;
 
-            ////TODO: This does not seem to work properly, find alternative.
+            //TODO: This does not seem to work properly, find alternative.
             //if (AvailableDevices.ToList().Exists(x => x.Equals(device)))
             //{
             //    return;
             //}
 
-            SessionLogger.LogEvent("Device detected");
+            _logger.LogDebug("Device detected");
 
             //Should we use synchronizationObject instead?
             Application.Current.Dispatcher.InvokeAsync(() => this.AvailableDevices.Add(device));

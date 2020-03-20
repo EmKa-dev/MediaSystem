@@ -33,27 +33,25 @@
     </WindowChrome.WindowChrome>
 
     <!--Outmost border, if we want dropshadow we need space (padding) here-->
-    <Border x:Name="OuterBorder">
+    <Border Name="outborder">
 
         <!--Main window outline-->
-        <Grid>
+        <Grid x:Name="OUterGrid">
 
             <!--Main window content-->
             <Grid x:Name="MainContentGrid">
 
                 <Grid.RowDefinitions>
                     <!--Titlebar-->
-                    <RowDefinition x:Name="TitleBarRow" Height="{StaticResource TitleBarGridHeight}" />
+                    <RowDefinition Height="{StaticResource TitleBarGridHeight}"/>
                     <!--Fill between titlebar and main content-->
                     <RowDefinition Height="auto" />
                     <!--Main content row-->
-                    <RowDefinition Height="auto"/>
-
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <!--Titlebar-->
-                <Grid Grid.Row="0" Panel.ZIndex="1">
+                <Grid Grid.Row="0" Panel.ZIndex="1" x:Name="TitleBarGrid">
                     <Grid.ColumnDefinitions>
                         <!--Icon-->
                         <ColumnDefinition Width="auto" />
@@ -87,14 +85,9 @@
                 </Border>
 
                 <!--Page content-->
-                <Border Grid.Row="2" Padding="15" Background="{StaticResource MainBackgroundGradientBrush}">
+                <Border Grid.Row="2" Padding="15" Background="{StaticResource MainBackgroundColorLightBrush}">
                     <ContentPresenter Content="{Binding Path=CurrentViewModel}" />
                 </Border>
-
-                <ListView Grid.Row="3" HorizontalAlignment="Right"
-                                             ItemsSource="{Binding Path=LoggerViewModel.SessionLog}">
-                </ListView>
-
             </Grid>
         </Grid>
 

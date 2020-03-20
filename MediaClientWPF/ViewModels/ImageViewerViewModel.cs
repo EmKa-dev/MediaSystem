@@ -1,5 +1,4 @@
-﻿
-namespace MediaSystem.DesktopClientWPF.ViewModels
+﻿namespace MediaSystem.DesktopClientWPF.ViewModels
 {
     public class ImageViewerViewModel : BaseViewModel
     {

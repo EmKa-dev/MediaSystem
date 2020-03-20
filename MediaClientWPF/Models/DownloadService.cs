@@ -1,5 +1,6 @@
 ﻿using MediaSystem.Communications;
 using MediaSystem.DesktopClientWPF.Extensions;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,8 +16,11 @@ namespace MediaSystem.DesktopClientWPF.Models
     {
         private readonly string DownloadTempFolder;
 
-        public DownloadService()
+        private ILogger _logger;
+
+        public DownloadService(ILogger logger)
         {
+            _logger = logger;
             DownloadTempFolder = GetTempFolder();
         }
 
@@ -65,7 +69,8 @@ namespace MediaSystem.DesktopClientWPF.Models
 
                 if (!responseheader.Equals(header))
                 {
-                    SessionLogger.LogEvent("Failed to retrieve file data : Response header does not match");
+                    _logger.LogError("Failed to retrieve file data : Response header does not match");
+
                     return null;
                 }
 
@@ -73,7 +78,7 @@ namespace MediaSystem.DesktopClientWPF.Models
 
                 List<byte> bytelist = new List<byte>();
 
-                SessionLogger.LogEvent($"Start downloading file into temp folder..");
+                _logger.LogDebug($"Start downloading file into temp folder..");
 
                 await Task.Run(() =>
                 {
@@ -138,7 +143,7 @@ namespace MediaSystem.DesktopClientWPF.Models
 
                 if (!responseheader.Equals(header))
                 {
-                    SessionLogger.LogEvent("Failed to retrieve file data : Response header does not match");
+                    _logger.LogError("Failed to retrieve file data : Response header does not match");
                     return null;
                 }
 
@@ -146,7 +151,7 @@ namespace MediaSystem.DesktopClientWPF.Models
 
                 List<byte> bytelist = new List<byte>();
 
-                SessionLogger.LogEvent($"Start downloading file into temp folder..");
+                _logger.LogDebug($"Start downloading file into temp folder..");
 
                 //Count check prevents the evaluation from returning false before the server had a chance to send anything
                 while (sock.Available > 0 || bytelist.Count == 0)

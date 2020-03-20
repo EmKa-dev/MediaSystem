@@ -6,12 +6,11 @@
     <UseWPF>true</UseWPF>
     <RootNamespace>MediaSystem.DesktopClientWPF</RootNamespace>
     <AssemblyName>MediaSystem.DesktopClientWPF</AssemblyName>
-    <Configurations>Debug;Release;GUITest</Configurations>
+    <Configurations>Debug;Release;GUITEST</Configurations>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GUITest|AnyCPU'">
-    <Optimize>false</Optimize>
-    <DefineConstants>TRACE;GUITest</DefineConstants>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -34,6 +33,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,7 +58,7 @@
     <EmbeddedResource Update="Dev\GUITest\TestImageResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TestImageResources.Designer.cs</LastGenOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
 

@@ -1,11 +1,11 @@
-﻿#define GUITest
-
-using MediaSystem.DesktopClientWPF;
+﻿using MediaSystem.DesktopClientWPF.Dev;
 using MediaSystem.DesktopClientWPF.Dev.GUITest;
 using MediaSystem.DesktopClientWPF.Models;
 using MediaSystem.DesktopClientWPF.ViewModels;
 using MediaSystem.DesktopClientWPF.Views;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using System.Windows;
 
 namespace DesktopClientWPF
@@ -33,13 +33,16 @@ namespace DesktopClientWPF
             services.AddTransient<ImageBrowserViewModel>();
 
             //Misc services
-#if GUITest
-            SessionLogger.LogEvent("GUITest");
+
+#if (GUITEST || DEBUG)
+            services.AddSingleton<ILogger, GUILogger>();
             services.AddTransient<IDownloadService, GUITestDownloadService>();
             services.AddTransient<IServerScanner, GUITestDetectionService>();
+
 #else
-                        services.AddTransient<IDownloadService, DownloadService>();
+            services.AddTransient<IDownloadService, DownloadService>();
             services.AddTransient<IServerScanner, DetectionService>();
+            services.AddSingleton<ILogger, NullLogger<NullLogger>>();
 #endif
 
         }
@@ -47,6 +50,7 @@ namespace DesktopClientWPF
         private void OnStartup(object sender, StartupEventArgs e)
         {
             var mainWindow = ServiceProvider.GetService<MainView>();
+            mainWindow.DataContext = ServiceProvider.GetService<MainViewModel>();
             mainWindow.Show();
         }
     }

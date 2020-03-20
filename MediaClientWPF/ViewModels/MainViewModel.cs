@@ -1,15 +1,15 @@
 ﻿using DesktopClientWPF;
 using MediaSystem.Communications;
 using Microsoft.Extensions.DependencyInjection;
-using System;
+using Microsoft.Extensions.Logging;
 
 namespace MediaSystem.DesktopClientWPF.ViewModels
 {
 	class MainViewModel : BaseViewModel
     {
-		DeviceBrowserViewModel _deviceBrowserViewModel;
+		private ILogger _logger;
 
-		public LoggerViewModel LoggerViewModel { get; set; }
+		DeviceBrowserViewModel _deviceBrowserViewModel;
 
 		private BaseViewModel _currentViewModel;
 
@@ -23,19 +23,20 @@ namespace MediaSystem.DesktopClientWPF.ViewModels
 			}
 		}
 
-		public MainViewModel()
+		public MainViewModel(ILogger logger)
 		{
+			_logger = logger;
 
 			_deviceBrowserViewModel = App.ServiceProvider.GetService<DeviceBrowserViewModel>();
 			_deviceBrowserViewModel.DeviceDetectedEvent += OnDeviceChanged;
-
 			CurrentViewModel = _deviceBrowserViewModel;
 
-			LoggerViewModel = new LoggerViewModel();
+			_deviceBrowserViewModel.StartServerDetection();
 		}
 
 		private void OnDeviceChanged(DeviceInfo deviceInfo)
 		{
+
 			switch (deviceInfo.MediaType)
 			{
 				case DataMediaType.Image:
