@@ -1,5 +1,3 @@
-## Bring dev state to a stable point in master, so new features can be developed in seperate branches.
-
 # Refactor downloadservice methods to use System.Span<T>(.Net Core 2.1 or later) to avoid excess buffer allocations.
 
 # Better exception-handling overall, but more specifically in downloading data.
