@@ -22,17 +22,23 @@ namespace MediaSystem.DesktopClientWPF.Commands
         }
 
         /// <summary>
-        /// To allow for anonymous methods
+        /// To allow for anonymous methods without arguments
         /// </summary>
         /// <param name="method"></param>
-        public RelayCommand(Action method)
+        public RelayCommand(Action method, Func<object, bool> canExecute = null)
         {
             methodToExecuteNoParam = method;
+            this.canExecute = canExecute;
         }
 
         public bool CanExecute(object parameter)
         {
-            return this.canExecute == null || this.canExecute(parameter);
+            if (canExecute == null)
+            {
+                return true;
+            }
+
+            return this.canExecute(parameter);
         }
 
         public void Execute(object parameter)
