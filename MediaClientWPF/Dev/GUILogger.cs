@@ -49,8 +49,6 @@ namespace MediaSystem.DesktopClientWPF.Dev
 			//Add debug log window
 			ListView list = new ListView();
 			list.SetValue(Grid.RowProperty, grid.RowDefinitions.Count - 1);
-			list.Focusable = false;
-			list.IsHitTestVisible = false;
 			list.BorderThickness = new Thickness(5);
 			list.BorderBrush = new SolidColorBrush(Colors.CadetBlue);
 			list.Margin = new Thickness(15);
@@ -64,6 +62,7 @@ namespace MediaSystem.DesktopClientWPF.Dev
 				App.Current.Dispatcher.Invoke(() =>
 				{
 					list.Items.Add(s);
+					list.Items.Refresh();
 					list.ScrollIntoView(list.Items[list.Items.Count - 1]);
 				});
 			}
