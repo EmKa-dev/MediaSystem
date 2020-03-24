@@ -34,15 +34,15 @@ namespace DesktopClientWPF
 
             //Misc services
 
-#if (GUITEST || DEBUG)
+#if GUITEST
             services.AddSingleton<ILogger, GUILogger>();
             services.AddTransient<IDownloadService, GUITestDownloadService>();
             services.AddTransient<IServerScanner, GUITestDetectionService>();
 
-#else
+#elif DEBUG
             services.AddTransient<IDownloadService, DownloadService>();
             services.AddTransient<IServerScanner, DetectionService>();
-            services.AddSingleton<ILogger, NullLogger<NullLogger>>();
+            services.AddSingleton<ILogger, GUILogger>();
 #endif
 
         }
