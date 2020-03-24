@@ -7,17 +7,21 @@ using System.Threading.Tasks;
 using System.Globalization;
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 
 namespace MediaSystem.DesktopClientWPF.Dev.GUITest
 {
-    public class GUITestDownloadService : IDownloadService
+    public class GUITestDownloadService : IDownloadService, IDisposable
     {
+        private ILogger _logger;
+
         private readonly string _downloadTempFolder;
 
         private List<Uri> _resourceimagedata = new List<Uri>();
 
-        public GUITestDownloadService()
+        public GUITestDownloadService(ILogger logger)
         {
+            _logger = logger;
             _downloadTempFolder = GetTempFolder();
             CreateTestImages();
         }
@@ -57,6 +61,18 @@ namespace MediaSystem.DesktopClientWPF.Dev.GUITest
         public Task<Uri> DownloadFileDataAsync(MediaFileInfo file, IPEndPoint iPEnd)
         {
             return Task.Run(() => _resourceimagedata[new Random().Next(0, _resourceimagedata.Count - 1)]);
+        }
+
+        public void Dispose()
+        {
+            foreach (var file in Directory.GetFiles(_downloadTempFolder))
+            {
+                File.Delete(file);
+            }
+
+            Directory.Delete(_downloadTempFolder);
+
+            _logger.LogDebug("GUITest Temp-files deleted");
         }
     }
 }

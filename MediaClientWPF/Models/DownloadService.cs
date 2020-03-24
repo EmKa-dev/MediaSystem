@@ -12,7 +12,7 @@ using TcpServerBaseLibrary;
 
 namespace MediaSystem.DesktopClientWPF.Models
 {
-    public class DownloadService : IDownloadService
+    public class DownloadService : IDownloadService, IDisposable
     {
         private readonly string DownloadTempFolder;
 
@@ -175,6 +175,16 @@ namespace MediaSystem.DesktopClientWPF.Models
             {
                 throw;
             }
+        }
+
+        public void Dispose()
+        {
+            foreach (var file in Directory.GetFiles(DownloadTempFolder))
+            {
+                File.Delete(file);
+            }
+
+            _logger.LogDebug("Temp-files deleted");
         }
     }
 }
