@@ -9,11 +9,11 @@ namespace MediaSystem.DesktopClientWPF.ViewModels
 {
 	class MainViewModel : BaseViewModel
     {
+		IServiceScope _serviceScope;
+
 		private ILogger _logger;
 
 		public ICommand BackToDevicesCommand { get; set; }
-
-		DeviceBrowserViewModel _deviceBrowserViewModel;
 
 		private BaseViewModel _currentViewModel;
 
@@ -29,18 +29,22 @@ namespace MediaSystem.DesktopClientWPF.ViewModels
 
 		public MainViewModel(ILogger logger)
 		{
+			_serviceScope = App.ServiceProvider.CreateScope();
+
 			_logger = logger;
+
 			BackToDevicesCommand = new RelayCommand(() => 
 			{
-				CurrentViewModel = _deviceBrowserViewModel;
+				SetCurrentViewModelToBrowser();
+				DisposeAndCreateNewScope();
 
 			}, new System.Func<object, bool>((o) => !(CurrentViewModel is DeviceBrowserViewModel)));
 
-			_deviceBrowserViewModel = App.ServiceProvider.GetService<DeviceBrowserViewModel>();
-			_deviceBrowserViewModel.DeviceDetectedEvent += OnDeviceChanged;
-			CurrentViewModel = _deviceBrowserViewModel;
+			var deviceBrowserViewModel = App.ServiceProvider.GetService<DeviceBrowserViewModel>();
+			deviceBrowserViewModel.DeviceDetectedEvent += OnDeviceChanged;
+			CurrentViewModel = deviceBrowserViewModel;
 
-			_deviceBrowserViewModel.StartServerDetection();
+			deviceBrowserViewModel.StartServerDetection();
 		}
 
 		private bool IsCurrentViewDeviceBrowser()
@@ -48,14 +52,27 @@ namespace MediaSystem.DesktopClientWPF.ViewModels
 			return !(CurrentViewModel is DeviceBrowserViewModel);
 		}
 
+		private void SetCurrentViewModelToBrowser()
+		{
+			CurrentViewModel = App.ServiceProvider.GetService<DeviceBrowserViewModel>();
+		}
+
+		private void DisposeAndCreateNewScope()
+		{
+			_serviceScope.Dispose();
+
+			_serviceScope = App.ServiceProvider.CreateScope();
+		}
+
 		private void OnDeviceChanged(DeviceInfo deviceInfo)
 		{
+
 
 			switch (deviceInfo.MediaType)
 			{
 				case DataMediaType.Image:
 
-					var imgvm = App.ServiceProvider.GetService<ImageBrowserViewModel>();
+					var imgvm = _serviceScope.ServiceProvider.GetService<ImageBrowserViewModel>();
 					imgvm.InitializeDeviceData(deviceInfo);
 					CurrentViewModel = imgvm;
 
