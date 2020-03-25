@@ -7,3 +7,8 @@
 # Add a mechanism for reporting download progress in DownloadService and displaying it.
 
 # Offer option to delete downloaded temp-files on app exit.
+	|_Create an options view.
+		|_Create options class
+			|_register options to DI.
+
+#Reimplement videoviewer along with browsing and a corresponding viewmodel.
