@@ -33,12 +33,12 @@ namespace MediaSystem.DesktopClientWPF.ViewModels
 
 			_logger = logger;
 
-			BackToDevicesCommand = new RelayCommand(() => 
+			BackToDevicesCommand = new RelayCommand(() =>
 			{
 				SetCurrentViewModelToBrowser();
 				DisposeAndCreateNewScope();
 
-			}, new System.Func<object, bool>((o) => !(CurrentViewModel is DeviceBrowserViewModel)));
+			}, CanGoBackToDeviceBrowser);
 
 			var deviceBrowserViewModel = App.ServiceProvider.GetService<DeviceBrowserViewModel>();
 			deviceBrowserViewModel.DeviceDetectedEvent += OnDeviceChanged;
@@ -47,7 +47,7 @@ namespace MediaSystem.DesktopClientWPF.ViewModels
 			deviceBrowserViewModel.StartServerDetection();
 		}
 
-		private bool IsCurrentViewDeviceBrowser()
+		private bool CanGoBackToDeviceBrowser(object o)
 		{
 			return !(CurrentViewModel is DeviceBrowserViewModel);
 		}
