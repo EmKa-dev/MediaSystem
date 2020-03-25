@@ -62,22 +62,14 @@
 
     </UserControl.Resources>
 
-    <Border Padding="50">
-
+    <Border>
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50" />
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
 
             <!--Device/Content browser -->
-            <ItemsControl Grid.Row="1"
-                          ItemsSource="{Binding AvailableDevices}"
-                          Style="{StaticResource DeviceOverview}" Margin="5"/>
+            <ItemsControl ItemsSource="{Binding AvailableDevices}"
+                          Style="{StaticResource DeviceOverview}"
+                          Margin="5"/>
 
         </Grid>
-
     </Border>
-
 </UserControl>
