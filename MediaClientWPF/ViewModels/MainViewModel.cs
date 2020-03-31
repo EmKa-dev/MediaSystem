@@ -80,9 +80,11 @@ namespace MediaSystem.DesktopClientWPF.ViewModels
 				case DataMediaType.Audio:
 					break;
 				case DataMediaType.Video:
+
 					var vidvm = _serviceScope.ServiceProvider.GetService<VideoBrowserViewModel>();
 					vidvm.InitializeDeviceData(deviceInfo);
 					CurrentViewModel = vidvm;
+
 					break;
 				default:
 					break;

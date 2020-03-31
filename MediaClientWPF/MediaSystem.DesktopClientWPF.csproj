@@ -17,13 +17,11 @@
     <Compile Remove="ViewModels\MusicPlayerViewModel.cs" />
     <Compile Remove="Views\GameViewer.xaml.cs" />
     <Compile Remove="Views\MusicViewer.xaml.cs" />
-    <Compile Remove="Views\VideoViewer.xaml.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <Page Remove="Views\GameViewer.xaml" />
     <Page Remove="Views\MusicViewer.xaml" />
-    <Page Remove="Views\VideoViewer.xaml" />
   </ItemGroup>
 
   <ItemGroup>

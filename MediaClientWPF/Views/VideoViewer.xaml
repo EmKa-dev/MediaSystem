@@ -35,7 +35,7 @@
                     <StackPanel>
                         <TextBlock Text="{Binding Title,RelativeSource={RelativeSource FindAncestor,AncestorType=Window}}"
                                FontWeight="Bold" FontSize="24" TextAlignment="Center"/>
-                        <TextBlock Text="{Binding CurrentVideoFile.FileName}" FontSize="16"/>
+                        <TextBlock Text="PlaceholderText" FontSize="16"/>
                     </StackPanel>
 
                 </Viewbox>

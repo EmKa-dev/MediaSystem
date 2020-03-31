@@ -1,7 +1,5 @@
-﻿using MediaSystem.Communications;
-using MediaSystem.DesktopClientWPF;
-using MediaSystem.DesktopClientWPF.ViewModels;
-using System.Net;
+﻿using MediaSystem.DesktopClientWPF.ViewModels;
+using System;
 using System.Windows;
 
 namespace MediaSystem.DesktopClientWPF.Views
@@ -11,11 +9,11 @@ namespace MediaSystem.DesktopClientWPF.Views
     /// </summary>
     public partial class VideoViewer : Window
     {
-        public VideoViewer(MediaFileInfo file, IPEndPoint ipEnd = null)
+        public VideoViewer(Uri videofilepath)
         {
             InitializeComponent();
 
-            this.DataContext = new VideoPlayerViewModel(file, this.MyMediaElement, ipEnd);
+            this.DataContext = new VideoPlayerViewModel(videofilepath, this.MyMediaElement);
 
             var resizer = new WindowResizer(this);
         }
