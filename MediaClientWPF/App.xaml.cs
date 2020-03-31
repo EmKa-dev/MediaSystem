@@ -31,6 +31,7 @@ namespace DesktopClientWPF
 
             //Add child viewmodels
             services.AddTransient<ImageBrowserViewModel>();
+            services.AddTransient<VideoBrowserViewModel>();
 
             //Misc services
 

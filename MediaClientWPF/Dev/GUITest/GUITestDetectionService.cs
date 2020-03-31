@@ -15,7 +15,7 @@ namespace MediaSystem.DesktopClientWPF.Dev.GUITest
         {
             if (Enabled)
             {   
-                DeviceDetected?.Invoke(new GUITestDeviceMocker().MockDevice(DataMediaType.Image));
+                DeviceDetected?.Invoke(new GUITestDeviceMocker().MockDevice(DataMediaType.Video));
 
                 this.Enabled = false;
             }

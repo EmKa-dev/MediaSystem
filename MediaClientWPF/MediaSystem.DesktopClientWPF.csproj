@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <Compile Remove="ViewModels\MusicPlayerViewModel.cs" />
-    <Compile Remove="ViewModels\VideoPlayerViewModel.cs" />
     <Compile Remove="Views\GameViewer.xaml.cs" />
     <Compile Remove="Views\MusicViewer.xaml.cs" />
     <Compile Remove="Views\VideoViewer.xaml.cs" />
