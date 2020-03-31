@@ -75,8 +75,6 @@ namespace MediaSystem.DesktopClientWPF.ViewModels
         private void LoadMedia()
         {
             _mediaPlayer.Source = _videoFileuri;
-
-            PlayFile();
         }
 
         protected override void CloseWindow()
