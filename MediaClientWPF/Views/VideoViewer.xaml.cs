@@ -13,7 +13,11 @@ namespace MediaSystem.DesktopClientWPF.Views
         {
             InitializeComponent();
 
-            this.DataContext = new VideoPlayerViewModel(videofilepath, this.MyMediaElement);
+            var vplayer = new VideoPlayerViewModel(videofilepath, this.MyMediaElement);
+
+            this.DataContext = vplayer;
+
+            this.Loaded += (sender, args) => { vplayer.PlayCommand.Execute(sender); }; 
 
             var resizer = new WindowResizer(this);
         }
