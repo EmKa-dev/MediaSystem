@@ -78,12 +78,17 @@ namespace MediaSystem.DesktopClientWPF
 
         #endregion
 
-        #region Public Events
+        #region Public Members
 
         /// <summary>
         /// Called when the window dock position changes
         /// </summary>
         public event Action<WindowDockPosition> WindowDockChanged = (dock) => { };
+
+        /// <summary>
+        /// Account for taskbar when calculating work area.
+        /// </summary>
+        public bool IncludeTaskBar { get; set; } = true;
 
         #endregion
 
@@ -161,6 +166,7 @@ namespace MediaSystem.DesktopClientWPF
         /// <param name="e"></param>
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+
             // We cannot find positioning until the window transform has been established
             if (mTransformToDevice == default(Matrix))
                 return;
@@ -268,7 +274,7 @@ namespace MediaSystem.DesktopClientWPF
             var lMmi = (MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(MINMAXINFO));
 
             // If it is the primary screen, use the rcWork variable
-            if (lPrimaryScreen.Equals(lCurrentScreen) == true)
+            if (lPrimaryScreen.Equals(lCurrentScreen) == true && IncludeTaskBar)
             {
                 lMmi.ptMaxPosition.X = lPrimaryScreenInfo.rcWork.Left;
                 lMmi.ptMaxPosition.Y = lPrimaryScreenInfo.rcWork.Top;
