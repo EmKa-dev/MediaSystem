@@ -7,18 +7,42 @@
         mc:Ignorable="d"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
+        Name="VideoPlayer"
         Title="VideoViewer" Height="450" Width="800">
 
+
+    <Window.Resources>
+
+        <Style x:Key="PlaybackControlsPanel" TargetType="{x:Type StackPanel}">
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=VideoPlayer, Path=IsFullScreen}" Value="true">
+                    <Setter Property="Opacity" Value="0"/>
+                </DataTrigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style x:Key="PlayBackControlButtons" TargetType="{x:Type Button}">
+
+            <Setter Property="Width" Value="auto"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+
+        </Style>
+        
+    </Window.Resources>
+    
     <!--Main border-->
     <Border>
-
         <!--main content grid-->
         <Grid>
-
             <Grid.RowDefinitions>
                 <!--Titlebar-->
                 <RowDefinition Height="30"/>
-
+                
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
@@ -48,55 +72,51 @@
                             Content="X" />
 
                 </StackPanel>
-
-
             </Grid>
 
-            <!--Main content display-->
-            <Border Grid.Row="1" Padding="10" Background="{StaticResource MainBackgroundColorDarkBrush}">
+            <!--Main video window, player + controls-->
+            <Border Grid.Row="2" Grid.RowSpan="1"
+                    x:Name="VideoBorder"
+                    Background="{StaticResource MainBackgroundColorDarkBrush}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="60" />
+                    </Grid.RowDefinitions>
 
-                    <!--Main video window, player + controls-->
-
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="60" />
-                        </Grid.RowDefinitions>
-
-                    <Border Margin="2" BorderThickness="2" BorderBrush="White" Background="Black">
-
-                        <Viewbox Grid.Row="0">
-
-                            <MediaElement Name="MyMediaElement" Stretch="None"/>
-
-                        </Viewbox>
-
-                    </Border>
-
+                    <MediaElement x:Name="MyMediaElement"
+                                  Grid.Row="0" Grid.RowSpan="1"
+                                  Stretch="UniformToFill"/>
 
                     <!--Media controls-->
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Bottom">
 
-                        <Button Content="Play" MinHeight="40" MinWidth="40"
+                    <StackPanel Grid.Row="1"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource PlaybackControlsPanel}">
+                        
+                        <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+
+                            <Button Content="Play" Style="{StaticResource PlayBackControlButtons}"
                             Command="{Binding PlayCommand}"/>
-                        <Button Content="Stop" MinHeight="40" MinWidth="40"
+                            <Button Content="Pause" Style="{StaticResource PlayBackControlButtons}"
                             Command="{Binding StopCommand}"/>
 
+                        </StackPanel>
                     </StackPanel>
                 </Grid>
-
             </Border>
         </Grid>
 
     </Border>
-
 
     <WindowChrome.WindowChrome>
         <WindowChrome 
             ResizeBorderThickness="{StaticResource MainResizeBorderThickness}"
             CaptionHeight="{StaticResource MainTitleBarHeight}"
             GlassFrameThickness="0"
-            CornerRadius="{StaticResource MainCornerRadius}"      
+            CornerRadius="{StaticResource MainCornerRadius}"
             />
     </WindowChrome.WindowChrome>
 
