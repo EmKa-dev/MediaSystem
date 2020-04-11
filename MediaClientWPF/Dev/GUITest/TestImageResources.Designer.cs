@@ -99,5 +99,15 @@ namespace MediaSystem.DesktopClientWPF.Dev.GUITest {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] White {
+            get {
+                object obj = ResourceManager.GetObject("White", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }
