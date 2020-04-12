@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Shell;
 
 namespace MediaSystem.DesktopClientWPF.Views
@@ -33,13 +34,7 @@ namespace MediaSystem.DesktopClientWPF.Views
         {
             InitializeComponent();
 
-            MouseDoubleClick += (o, e) => 
-            {
-                if (e.OriginalSource is MediaElement)
-                {
-                    ToggleFullSCreen();
-                }
-            };
+            MouseDoubleClick += ToggleFullSCreen;
 
             var vplayer = new VideoPlayerViewModel(videofilepath, this.MyMediaElement);
 
@@ -54,40 +49,50 @@ namespace MediaSystem.DesktopClientWPF.Views
             _windowResizer = new WindowResizer(this);
         }
 
-        private void ToggleFullSCreen()
+        private void ToggleFullSCreen(object sender, MouseButtonEventArgs args)
         {
-            if (IsFullScreen)
+            if (args.OriginalSource is MediaElement)
             {
-                _windowResizer.IncludeTaskBar = true;
-                WindowChrome.SetWindowChrome(this, _originalChromeObject);
+                if (IsFullScreen)
+                {
+                    _windowResizer.IncludeTaskBar = true;
+                    WindowChrome.SetWindowChrome(this, _originalChromeObject);
 
-                VideoBorder.SetValue(Grid.RowProperty, 2);
-                VideoBorder.SetValue(Grid.RowSpanProperty, 1);
-                MyMediaElement.SetValue(Grid.RowSpanProperty, 1);
-                this.WindowState = WindowState.Normal;
+                    VideoBorder.SetValue(Grid.RowProperty, 2);
+                    VideoBorder.SetValue(Grid.RowSpanProperty, 1);
+                    MyMediaElement.SetValue(Grid.RowSpanProperty, 1);
+                    this.WindowState = WindowState.Normal;
 
-                ResizeMode = ResizeMode.CanResize;
+                    ResizeMode = ResizeMode.CanResize;
 
-                IsFullScreen = false;
+                    IsFullScreen = false;
+                }
+                else
+                {
+                    _windowResizer.IncludeTaskBar = false;
+                    WindowChrome.SetWindowChrome(this, new WindowChrome());
+
+                    VideoBorder.SetValue(Grid.RowProperty, 0);
+                    VideoBorder.SetValue(Grid.RowSpanProperty, 3);
+                    MyMediaElement.SetValue(Grid.RowSpanProperty, 3);
+
+                    this.WindowState = WindowState.Maximized;
+
+                    ResizeMode = ResizeMode.NoResize;
+
+                    this.Hide();
+                    this.Show();
+
+                    IsFullScreen = true;
+                }
             }
-            else
-            {
-                _windowResizer.IncludeTaskBar = false;
-                WindowChrome.SetWindowChrome(this, new WindowChrome());
+        }
 
-                VideoBorder.SetValue(Grid.RowProperty, 0);
-                VideoBorder.SetValue(Grid.RowSpanProperty, 3);
-                MyMediaElement.SetValue(Grid.RowSpanProperty, 3);
 
-                this.WindowState = WindowState.Maximized;
-
-                ResizeMode = ResizeMode.NoResize;
-
-                this.Hide();
-                this.Show();
-
-                IsFullScreen = true;            
-            }
+        protected override void OnClosed(EventArgs e)
+        {
+            MouseDoubleClick -= ToggleFullSCreen;
+            base.OnClosed(e);
         }
     }
 }
