@@ -24,15 +24,14 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        
+
         <Style x:Key="PlayBackControlButtons" TargetType="{x:Type Button}">
 
             <Setter Property="Width" Value="auto"/>
             <Setter Property="Padding" Value="10"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
-
         </Style>
-        
+
     </Window.Resources>
     
     <!--Main border-->
@@ -55,11 +54,10 @@
                 </Grid.ColumnDefinitions>
 
                 <!--Title-->
-                <Viewbox Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                <Viewbox Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left">
                     <StackPanel>
-                        <TextBlock Text="{Binding Title,RelativeSource={RelativeSource FindAncestor,AncestorType=Window}}"
-                               FontWeight="Bold" FontSize="24" TextAlignment="Center"/>
-                        <TextBlock Text="PlaceholderText" FontSize="16"/>
+                        <TextBlock Text="VideoTitle"
+                               FontWeight="Bold" TextAlignment="Center"/>
                     </StackPanel>
 
                 </Viewbox>
@@ -68,7 +66,7 @@
                 <!--window system buttons-->
                 <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
                     <Button Style="{StaticResource WindowCloseButton}"
-                            Command="{Binding CloseCommand}"
+                            Click="Button_CloseWindow_Click"
                             Content="X" />
 
                 </StackPanel>
@@ -81,27 +79,53 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="60" />
+                        <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
 
                     <MediaElement x:Name="MyMediaElement"
                                   Grid.Row="0" Grid.RowSpan="1"
-                                  Stretch="UniformToFill"/>
+                                  Stretch="UniformToFill"
+                                  ScrubbingEnabled="True"/>
 
                     <!--Media controls-->
-
                     <StackPanel Grid.Row="1"
                                 VerticalAlignment="Center"
+                                Background="Transparent"
                                 Style="{StaticResource PlaybackControlsPanel}">
-                        
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <!--Current time box-->
+                                <ColumnDefinition Width="80"/>
+                                <!--Seekbar-->
+                                <ColumnDefinition Width="*"/>
+                                <!--Total media duration-->
+                                <ColumnDefinition Width="80"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" x:Name="CurrentTimeText"
+                                       Text="00:00"
+                                       Foreground="White" TextAlignment="Center"/>
+                            
+                            <Slider Grid.Column="1" x:Name="MySeekBar" Margin="0, 0 , 0, 0"
+                                IsSnapToTickEnabled="False"
+                                IsMoveToPointEnabled="True"
+                                Thumb.DragStarted="MySeekBar_DragStarted"
+                                Thumb.DragCompleted="MySeekBar_DragCompleted">
+                            </Slider>
+
+                            <TextBlock Grid.Column="2" x:Name="TotalDurationText"
+                                       Text="00:00"
+                                       Foreground="White" TextAlignment="Center"/>
+                        </Grid>
+
                         <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
 
                             <Button Content="Play" Style="{StaticResource PlayBackControlButtons}"
-                            Command="{Binding PlayCommand}"/>
+                            Click="Button_Play_Click"/>
                             <Button Content="Pause" Style="{StaticResource PlayBackControlButtons}"
-                            Command="{Binding StopCommand}"/>
+                            Click="Button_Pause_Click"/>
 
                         </StackPanel>
                     </StackPanel>
