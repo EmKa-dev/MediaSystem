@@ -11,5 +11,9 @@
 		|_Create options class
 			|_register options to DI.
 
-#Reimplement videoviewer along with browsing and a corresponding viewmodel.
-	|_ Figure out a way to show cover-images for videos in the browser.
+#Figure out a way to show cover-images for videos in the Videobrowser.
+
+Bugs & issues:
+
+	VideoViewer:
+		Window gets sharp corners when returning from fullscreen instead of rounded corners.
